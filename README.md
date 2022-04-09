@@ -21,6 +21,14 @@ Puedes probar la aplicación [aquí](https://rock-paper-scissors-jonapraiz.verce
 ### Bonus points
 [x] Incluir una vista de “ranking” con la máxima puntuación de cada uno de los jugadores registrados.
 
+[_] Incluir la posibilidad de jugar contra otro jugador en vez de contra la “máquina”.
+
+[_] Mejorar la “inteligencia” de la “máquina” para que tenga una mayor probabilidad de ganar.
+
+[_] Aumentar el número de opciones para jugar como el famoso “piedra, papel, tijeras, lagarto o Spock”.
+
+[x] Incluir vibración en el dispositivo cada vez que el usuario pierda.
+
 ## Montar el proyecto en local
 
 ### 1. Clonar el proyecto en tu ordenador:
