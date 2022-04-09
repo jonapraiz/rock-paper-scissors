@@ -3,7 +3,7 @@
     <div class="rps-navbar">
       <p class="rps-player">hi, {{ player }}</p>
       <a
-        class="rps-logout"
+        class="rps-link-button"
         @click="this.$router.push({ name: 'home' })">
         log out
       </a>
@@ -29,13 +29,20 @@
           @click="play('scissors')">
       </div>
     </div>
-    <p v-if="playerSelected !== null">
-      You: {{ playerSelected }}
-    </p>
-    <p v-if="botSelected !== null">
-      Bot: {{ botSelected }}
-    </p>
-    <p>{{ winner }}</p>
+    <div class="rps-result">
+      <p v-if="playerSelected !== null">
+        You: {{ playerSelected }}
+      </p>
+      <div
+        v-show="showLoader"
+        class="rps-loader"></div>
+      <p v-show="showBot">
+        Bot: {{ botSelected }}
+      </p>
+      <p v-show="showWinner">
+        {{ winner }}
+      </p>
+    </div>
   </div>
 </template>
 
@@ -49,7 +56,11 @@ export default {
       playerSelected: null,
       botSelected: null,
       score: null,
-      winner: null
+      winner: null,
+      showLoader: false,
+      showBot: false,
+      showWinner: false,
+      color: 'beige'
     }
   },
   computed: {
@@ -58,7 +69,11 @@ export default {
     }
   },
   created() {
+    // el bot ecoge su primera jugada sobre 3 opciones
+    this.botSelected = this.gameOptions[[Math.floor(Math.random() * 3)]]
+    // un intento de router guard
     if (Object.keys(this.$route.params).length === 0) this.$router.push({ name: 'home' })
+    // recupero los datos del player
     let storagePlayer = localStorage.getItem(this.$route.params.player)
     // cuando es un nuevo jugador y no tiene score
     if (storagePlayer === null) {
@@ -71,25 +86,34 @@ export default {
     }
   },
   methods: {
-    // 
     play(selected) {
+      this.showLoader = true
       this.playerSelected = selected
+      // el bot escoge su jugada
+      let aux = this.bot()
+      // reset de los show flags
       this.reset()
-      // la seleccion del bot debe ser diferente en cada jugada !!!!
-      this.fight(this.playerSelected, this.gameOptions[Math.floor(Math.random() * 3)])
+      // resuelve la partida
+      this.fight(this.playerSelected, aux)
         .then(response => {
           let { bot, result } = response
           this.botSelected = bot
           if (result === 'player') {
+            this.color = 'green'
             this.score++
             let aux = { name: this.player, score: this.score }
             localStorage.setItem(this.player, JSON.stringify(aux))
             this.winner = 'You win'
           } else if (result === 'bot') {
+            this.color = 'red'
             this.winner = 'Bot win'
           } else {
+            this.color = 'orange'
             this.winner = 'Tie'
           }
+          this.showLoader = false
+          this.showBot = true
+          this.showWinner = true
         })
         .catch(error => {
           console.error(error)
@@ -138,21 +162,28 @@ export default {
       })
     },
 
-    // resetea los valores para la ronda siguiente
+    // el bot escoge su jugada descartando su eleccion anterior
+    bot() {
+      let aux = this.gameOptions.filter(option => option !== this.botSelected)
+      return aux[Math.floor(Math.random() * 2)]
+    },
+
+    // resetea los show flags para la ronda siguiente
     reset() {
-      this.botSelected = null
-      this.winner = null
+      this.showBot = false
+      this.showWinner = false
     }
   }
 }
 </script>
 
-<style>
+<style scoped>
   .rps-container {
     max-width: 640px;
     height: 100vh;
     margin: 0 auto;
-    background-color: cornflowerblue;
+    /* background-color:beige; */
+    background-color: v-bind('color');
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -171,7 +202,7 @@ export default {
     padding: 0 16px;
   }
 
-  .rps-logout {
+  .rps-link-button {
     padding: 0 16px;
     text-decoration: underline;
     cursor: pointer;
@@ -216,5 +247,23 @@ export default {
     height: 50px;
   }
 
+  .rps-result {
+    padding: 16px 0;
+  }
+
+  .rps-loader {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    margin: auto;
+    animation: spin 2s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 
 </style>
