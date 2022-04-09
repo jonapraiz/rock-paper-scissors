@@ -33,9 +33,7 @@
       <p v-if="playerSelected !== null">
         You: {{ playerSelected }}
       </p>
-      <div
-        v-show="showLoader"
-        class="rps-loader"></div>
+      <rps-loader :show="showLoader"/>
       <p v-show="showBot">
         Bot: {{ botSelected }}
       </p>
@@ -47,9 +45,13 @@
 </template>
 
 <script>
+import RPSLoader from '@/components/RPSLoader.vue'
 
 export default {
   name: 'GameView',
+  components: {
+    'rps-loader': RPSLoader
+  },
   data() {
     return {
       gameOptions: ['rock', 'paper', 'scissors'],
@@ -247,21 +249,6 @@ export default {
 
   .rps-result {
     padding: 16px 0;
-  }
-
-  .rps-loader {
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid #3498db;
-    border-radius: 50%;
-    width: 32px;
-    height: 32px;
-    margin: auto;
-    animation: spin 2s linear infinite;
-  }
-
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
   }
 
 </style>
