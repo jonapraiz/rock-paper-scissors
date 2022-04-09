@@ -2,10 +2,10 @@
   <div class="rps-container">
     <h1>Scoreboard</h1>
     <a
-        class="rps-logout"
-        @click="this.$router.push({ name: 'home' })">
-        home
-      </a>
+      class="rps-link-button"
+      @click="this.$router.push({ name: 'home' })">
+      home
+    </a>
     <p v-if="ranking.length === 0">No players registered yet</p>
     <table
       v-else
@@ -63,7 +63,23 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+  .rps-container {
+    max-width: 640px;
+    height: 100vh;
+    margin: 0 auto;
+    background-color: cornflowerblue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .rps-link-button {
+    padding: 8px 16px;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
   .rps-table {
     box-shadow: 0 2px 4px 0 rgb(0, 0, 0, .2);
     -moz-box-shadow: 0 2px 4px 0 rgb(0, 0, 0, .2);

@@ -13,12 +13,17 @@
       v-model="player"
       class="rps-input"
       placeholder="jon">
+    <p
+      v-show="validationError"
+      class="rps-validation-error">Invalid player name</p>
     <button
       class="rps-button"
       @click="validate">
       sign in
     </button>
-    <a @click="this.$router.push({ name: 'scoreboard' })">scoreboard</a>
+    <a
+      class="rps-link-button"
+      @click="this.$router.push({ name: 'scoreboard' })">scoreboard</a>
   </div>
 </template>
 
@@ -33,13 +38,14 @@ export default {
   },
   data () {
     return {
-      player: ''
+      player: '',
+      validationError: false
     }
   },
   methods: {
     validate() {
       if (this.player === '' || this.player === null){
-        console.log('Validation error')
+        this.validationError = true
       } else {
         this.$router.push({ name: 'game', params: { player: this.player } })
       }
@@ -48,7 +54,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .rps-container {
     max-width: 640px;
     height: 100vh;
@@ -85,6 +91,12 @@ export default {
     outline: none;
   }
 
+  .rps-validation-error {
+    color: red;
+    font-size: 14px;
+    padding: 8px 0;
+  }
+
   .rps-button {
     margin: 16px;
     padding: 8px 16px;
@@ -94,6 +106,12 @@ export default {
     box-shadow: 0 2px 4px 0 rgb(0, 0, 0, .2);
     -moz-box-shadow: 0 2px 4px 0 rgb(0, 0, 0, .2);
     -webkit-box-shadow: 0 2px 4px 0 rgb(0, 0, 0, .2);
+  }
+
+  .rps-link-button {
+    padding: 0 16px;
+    text-decoration: underline;
+    cursor: pointer;
   }
 
 </style>
