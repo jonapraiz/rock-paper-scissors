@@ -12,7 +12,8 @@
       type="text"
       v-model="player"
       class="rps-input"
-      placeholder="jon">
+      placeholder="jon"
+      autocomplete="off">
     <p
       v-show="validationError"
       class="rps-validation-error">Invalid player name</p>

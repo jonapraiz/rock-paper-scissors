@@ -107,7 +107,7 @@ export default {
           } else if(result === 'bot') {
             this.color = 'red'
             this.winner = 'Bot win'
-            window.navigator.vibrate([200, 100, 200])
+            if(window.navigator.vibrate) window.navigator.vibrate([200, 100, 200])
           } else {
             this.color = 'orange'
             this.winner = 'Tie'
