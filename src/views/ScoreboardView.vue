@@ -47,7 +47,7 @@ export default {
     ranking() {
       let arr = []
       let keys = Object.keys(localStorage)
-      if (keys !== null) {
+      if(keys !== null) {
         keys.forEach(key => {
           let aux = JSON.parse(localStorage.getItem(key))
           arr.push(aux)

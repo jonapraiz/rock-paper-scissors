@@ -71,12 +71,10 @@ export default {
   created() {
     // el bot ecoge su primera jugada sobre 3 opciones
     this.botSelected = this.gameOptions[[Math.floor(Math.random() * 3)]]
-    // un intento de router guard
-    if (Object.keys(this.$route.params).length === 0) this.$router.push({ name: 'home' })
     // recupero los datos del player
     let storagePlayer = localStorage.getItem(this.$route.params.player)
     // cuando es un nuevo jugador y no tiene score
-    if (storagePlayer === null) {
+    if(storagePlayer === null) {
       let storageScore = 0
       let aux = { name: this.player, score: storageScore }
       localStorage.setItem(this.$route.params.player, JSON.stringify(aux))
@@ -98,13 +96,13 @@ export default {
         .then(response => {
           let { bot, result } = response
           this.botSelected = bot
-          if (result === 'player') {
+          if(result === 'player') {
             this.color = 'green'
             this.score++
             let aux = { name: this.player, score: this.score }
             localStorage.setItem(this.player, JSON.stringify(aux))
             this.winner = 'You win'
-          } else if (result === 'bot') {
+          } else if(result === 'bot') {
             this.color = 'red'
             this.winner = 'Bot win'
           } else {
@@ -128,26 +126,26 @@ export default {
           // tiene un delay para simular el efecto de que el bot tarda en pensar
           setTimeout(() => {
             let result
-            if (player === 'rock') {
+            if(player === 'rock') {
               if (bot === 'paper') {
                 result = 'bot'
-              } else if (bot === 'scissors') {
+              } else if(bot === 'scissors') {
                 result = 'player'
               } else {
                 result = 'tie'
               }
-            } else if (player === 'paper') {
+            } else if(player === 'paper') {
               if (bot === 'scissors') {
                 result = 'bot'
-              } else if (bot === 'rock') {
+              } else if(bot === 'rock') {
                 result = 'player'
               } else {
                 result = 'tie'
               }
             } else {
-              if (bot === 'rock') {
+              if(bot === 'rock') {
                 result = 'bot'
-              } else if (bot === 'paper') {
+              } else if(bot === 'paper') {
                 result = 'player'
               } else {
                 result = 'tie'
