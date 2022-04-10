@@ -8,7 +8,8 @@
         log out
       </a>
     </div>
-    <p class="rps-score">Score: {{ score }}</p>
+    <h1 class="rps-title">play</h1>
+    <p class="rps-score">score: {{ score }}</p>
     <div class="rps-actions">
       <div class="rps-action-img">
         <img
@@ -30,14 +31,20 @@
       </div>
     </div>
     <div class="rps-result">
-      <p v-if="playerSelected !== null">
+      <p
+        v-show="playerSelected !== null"
+        class="rps-player-selected">
         You: {{ playerSelected }}
       </p>
       <rps-loader :show="showLoader"/>
-      <p v-show="showBot">
+      <p
+        v-show="showBot"
+        class="rps-bot-selected">
         Bot: {{ botSelected }}
       </p>
-      <p v-show="showWinner">
+      <p
+        v-show="showWinner"
+        class="rps-winner">
         {{ winner }}
       </p>
     </div>
@@ -62,7 +69,7 @@ export default {
       showLoader: false,
       showBot: false,
       showWinner: false,
-      color: 'beige'
+      color: 'darkgray'
     }
   },
   computed: {
@@ -183,7 +190,6 @@ export default {
     max-width: 640px;
     height: 100vh;
     margin: 0 auto;
-    /* background-color:beige; */
     background-color: v-bind('color');
     display: flex;
     flex-direction: column;
@@ -192,7 +198,7 @@ export default {
 
   .rps-navbar {
     width: 100%;
-    padding: 8px 0;
+    padding: 16px 0;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -209,12 +215,18 @@ export default {
     cursor: pointer;
   }
 
+  .rps-title {
+    padding: 8px 16px;
+  }
+
   .rps-score {
     padding: 16px 0;
+    font-weight: bold;
+    font-size: 20px;
   }
 
   .rps-actions {
-    width: 90%;
+    width: 80%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -233,7 +245,6 @@ export default {
     box-shadow: 0 2px 4px 0 rgb(0, 0, 0, .2);
     -moz-box-shadow: 0 2px 4px 0 rgb(0, 0, 0, .2);
     -webkit-box-shadow: 0 2px 4px 0 rgb(0, 0, 0, .2);
-
     transition-property: all;
     transition-timing-function: cubic-bezier(.4,0,.2,1);
     transition-duration: .3s;
@@ -250,6 +261,19 @@ export default {
 
   .rps-result {
     padding: 16px 0;
+  }
+
+  .rps-player-selected {
+    padding: 8px 0;
+  }
+
+  .rps-bot-selected {
+    padding: 8px 0;
+  }
+
+  .rps-winner {
+    padding: 8px 0;
+    font-weight: bold;
   }
 
 </style>
