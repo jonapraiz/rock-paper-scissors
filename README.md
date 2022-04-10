@@ -12,7 +12,7 @@ Puedes probar la aplicación [aquí](https://rock-paper-scissors-jonapraiz.verce
 
 [x] El código debe ser público y estar alojado en algún repositorio de git, por ejemplo, Github, GitLab o Bitbucket.
 
-[_] Se deberán realizar tests unitarios de las vistas y de los componentes de la aplicación.
+[~] Se deberán realizar tests unitarios de las vistas y de los componentes de la aplicación.
 
 [x] Se podrá utilizar cualquier infraestructura de alojamiento pública como, por ejemplo, Vercel, Netlify o Github Pages.
 
@@ -56,4 +56,14 @@ npm run serve
 ### Compilar el proyecto para producción:
 ```
 npm run build
+```
+
+### Lanzar los teses unitarios:
+```
+npm run test:unit
+```
+
+### Lanzar los teses unitarios con watchAll:
+```
+npm run test:unit--watch
 ```
