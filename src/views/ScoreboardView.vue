@@ -50,10 +50,6 @@
 
 export default {
   name: 'ScoreboardView',
-  data () {
-    return {
-    }
-  },
   computed: {
     ranking() {
       let arr = []
@@ -66,10 +62,6 @@ export default {
       }
       return arr
     }
-  },
-  created() {
-  },
-  methods: {
   }
 }
 </script>
